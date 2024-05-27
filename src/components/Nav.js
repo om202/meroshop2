@@ -1,7 +1,7 @@
 export const Nav = () => {
   const items_in_cart = 1;
   return (
-    <nav className="bg-slate-600 w-full p-3 pr-8 pl-8 fixed shadow-sm">
+    <nav className="bg-slate-600 w-full p-3 pr-8 pl-8 fixed shadow-sm z-50">
       <div className="flex justify-between items-center text-emerald-100">
         <div className="flex flex-row text-center gap-3 items-center">
           <img className="w-11" src="mero-shop-logo.png" alt="mero shop logo" />
