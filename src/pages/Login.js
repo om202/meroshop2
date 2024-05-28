@@ -1,4 +1,27 @@
+import React from "react";
+import { GlobalStateContext } from "../State";
+import { useNavigate } from "react-router-dom";
+
 export const Login = () => {
+  const [state, setState] = React.useContext(GlobalStateContext);
+  const setUser = (user) => {
+    setState((state) => ({ ...state, user }));
+  };
+  const navigate = useNavigate();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (email === "test@user.com" && password === "ax23hj422cda") {
+      setUser(email);
+      localStorage.setItem("user", email);
+      navigate("/");
+    } else {
+      alert("Invalid email or password");
+    }
+  };
+
   return (
     <div class="bg-gray-50 pt-10 h-full">
       <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
@@ -24,6 +47,7 @@ export const Login = () => {
                   Your email
                 </label>
                 <input
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
@@ -40,6 +64,7 @@ export const Login = () => {
                   Your password
                 </label>
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   name="password"
                   id="password"
@@ -50,13 +75,16 @@ export const Login = () => {
               </div>
               <button
                 type="submit"
+                onClick={(e) => handleLogin(e)}
                 class="w-full px-5 py-3 text-base font-medium text-center text-white bg-emerald-500 rounded-lg hover:bg-emerald-600 focus:ring-4 focus:ring-blue-300 sm:w-auto"
               >
                 Login to your account
               </button>
               <div class="text-sm font-medium text-gray-900 ">
                 Not registered yet?{" "}
-                <a class="text-blue-600 hover:underline" href="/register">Create account</a>
+                <a class="text-blue-600 hover:underline" href="/register">
+                  Create account
+                </a>
               </div>
             </form>
           </div>
