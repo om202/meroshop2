@@ -23,7 +23,9 @@ export const Nav = () => {
           <ul className="flex space-x-6">
             <li className="cursor-pointer">
               {user ? (
-                <span>{user}</span>
+                <a href="/user">
+                  <span>{user}</span>
+                </a>
               ) : (
                 <a href="/login">
                   <div className="flex gap-1">

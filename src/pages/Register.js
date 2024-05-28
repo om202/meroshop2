@@ -1,6 +1,6 @@
 export const Register = () => {
   return (
-    <div class="bg-gray-50 pt-10 h-full">
+    <div class="pt-10 h-full">
       <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
         <div class="flex flex-col justify-center items-center">
           <img src="mero-shop-logo.png" alt="logo" class="w-48" />
@@ -11,7 +11,7 @@ export const Register = () => {
           </p>
         </div>
         <div>
-          <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl">
+          <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-sm border">
             <h2 class="text-2xl font-bold text-gray-900">
               Sign up for Mero Shop
             </h2>
