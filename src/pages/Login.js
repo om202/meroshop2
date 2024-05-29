@@ -13,13 +13,31 @@ export const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email === "test@user.com" && password === "ax23hj422cda") {
-      setUser(email);
-      localStorage.setItem("user", email);
-      navigate("/");
-    } else {
-      alert("Invalid email or password");
-    }
+    fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          alert(`Error: ${data.error}`);
+          console.error("Error:", data.error);
+        } else {
+          alert("User logged in successfully");
+          navigate("/");
+          setUser(email);
+          localStorage.setItem("user", email);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (

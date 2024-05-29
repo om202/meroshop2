@@ -4,7 +4,7 @@ import numeral from "numeral";
 
 export const Cart = () => {
   const [state, setState] = React.useContext(GlobalStateContext);
-  const { cart } = state;
+  const { cart, user } = state;
   const final_cart = cart
     .map((item) => {
       return {
@@ -16,6 +16,16 @@ export const Cart = () => {
       (item, index, self) => self.findIndex((i) => i.id === item.id) === index
     );
 
+  const handlePurchase = () => {
+    if(!user) {
+      alert("Please login to purchase");
+      return;
+    }
+    alert("Purchase successful");
+    setState((state) => ({ ...state, cart: [] }));
+    localStorage.removeItem("cart");
+  };
+
   return (
     <div class="pt-20 p-4">
       {final_cart.length === 0 ? (
@@ -26,9 +36,9 @@ export const Cart = () => {
 
           <div class="flex flex-wrap gap-4">
             {final_cart.map((item) => (
-              <div class="bg-white p-4 rounded-lg shadow-sm border flex gap-4 w-96">
-                <div className="w-32 h-auto flex justify-center items-center">
-                  <img src={item.image} alt={item.title} class="h-32" />
+              <div class="bg-white p-4 rounded-lg shadow-sm border flex gap-3 w-96">
+                <div className="w-24 h-auto flex justify-center items-center">
+                  <img src={item.image} alt={item.title} />
                 </div>
                 <div>
                   <div class="text-base mb-2 mt-4">{item.title}</div>
@@ -64,7 +74,7 @@ export const Cart = () => {
               Clear Cart
             </button>
             <button
-              onClick={() => {}}
+              onClick={() => handlePurchase()}
               className="bg-emerald-500 text-white rounded px-4 py-2 ml-4"
             >
               Purchase Now
