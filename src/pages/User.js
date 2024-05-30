@@ -7,7 +7,9 @@ export const User = () => {
   const [state, setState] = React.useContext(GlobalStateContext);
   const navigate = useNavigate();
   const setUser = (user) => {
-    setState((state) => ({ ...state, user }));
+    let isAdmin = false;
+    setState((state) => ({ ...state, user, isAdmin}));
+    localStorage.removeItem('isAdmin');
     localStorage.removeItem('user');
     navigate('/');
   };

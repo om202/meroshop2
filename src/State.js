@@ -7,6 +7,7 @@ export const GlobalStateProvider = ({ children }) => {
     products: JSON.parse(localStorage.getItem('products')) || [],
     cart: JSON.parse(localStorage.getItem('cart')) || [],
     user: localStorage.getItem('user') || null,
+    isAdmin: localStorage.getItem('isAdmin') || false,
   });
 
   return (

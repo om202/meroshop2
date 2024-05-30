@@ -40,6 +40,12 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
+  let isAdmin = false;
+
+  if (email === 'admin@meroshop.com') {
+    isAdmin = true;
+  }
+
   // Find the user by email
   const user = await User.findOne({ email: email });
   if (!user) {
@@ -52,7 +58,11 @@ app.post("/login", async (req, res) => {
     return res.status(500).send({"error": "Invalid password"});
   }
 
-  res.send({"success": "User logged in successfully"});
+  if (isAdmin) {
+    return res.send({"success": "Admin logged in successfully", "isAdmin": true});
+  }
+
+  res.send({"success": "User logged in successfully", "isAdmin": false});
 });
 
 app.listen(3001, () => {

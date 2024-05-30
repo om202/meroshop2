@@ -3,9 +3,14 @@ import { GlobalStateContext } from "../State";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const [state, setState] = React.useContext(GlobalStateContext);
+  const [_, setState] = React.useContext(GlobalStateContext);
   const setUser = (user) => {
+    localStorage.setItem("user", email);
     setState((state) => ({ ...state, user }));
+  };
+  const setIsAdmin = (isAdmin) => {
+    localStorage.setItem("isAdmin", true);
+    setState((state) => ({ ...state, isAdmin }));
   };
   const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
@@ -29,6 +34,13 @@ export const Login = () => {
           alert(`Error: ${data.error}`);
           console.error("Error:", data.error);
         } else {
+          if (data.isAdmin) {
+            setUser(email);
+            setIsAdmin(true);
+            alert("Admin logged in successfully");
+            navigate("/admin");
+            return;
+          }
           alert("User logged in successfully");
           navigate("/");
           setUser(email);
