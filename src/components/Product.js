@@ -21,7 +21,7 @@ export const Product = ({ product }) => {
         <img className="h-48" src={product.image} alt={product.title} />
       </div>
       <div className="text-base mb-2 mt-4">{product.title}</div>
-      <div>Rs. {numeral(product.price * 120).format("0,0")}</div>
+      <div>Rs. {numeral(product.price).format("0,0")}</div>
       {isHovered && (
         <div className="bg-slate-100 flex absolute bottom-0 p-4 right-0 w-full justify-center">
           <button onClick={() => addToCart(product)} className=" bg-emerald-500 text-white rounded px-2 py-1">

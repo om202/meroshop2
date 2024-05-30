@@ -1,29 +1,56 @@
 import { useState } from "react";
 
 export const AddProduct = () => {
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    fetch("http://localhost:3001/add-product", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description: desc,
+        price,
+        image,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Error:", data.error);
+          alert(`Error: ${data.error}`);
+        } else {
+          console.log("Product saved successfully");
+          setPrice("");
+          setTitle("");
+          setDesc("");
+          setImage(null);
+          alert("Product saved successfully");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
 
   return (
     <div className="bg-slate-50 p-5 rounded-lg border">
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <label className="flex flex-col">
-          Name:
+          Title:
           <input
             type="text"
+            placeholder="Amazing Product"
             className="border border-gray-300 p-2 mt-2 rounded-md"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             required
           />
         </label>
@@ -33,6 +60,7 @@ export const AddProduct = () => {
             type="number"
             className="border border-gray-300 p-2 mt-2 rounded-md"
             value={price}
+            placeholder="100"
             onChange={(e) => setPrice(e.target.value)}
             required
           />
@@ -42,15 +70,18 @@ export const AddProduct = () => {
           <textarea
             className="border border-gray-300 p-2 mt-2 rounded-md"
             value={desc}
+            placeholder="This is a product description."
             onChange={(e) => setDesc(e.target.value)}
             required
           />
         </label>
         <label className="flex flex-col">
-          Image:
+          Image URL:
           <input
-            type="file"
-            onChange={handleImageChange}
+            type="url"
+            value={image}
+            placeholder="https://example.com/image.jpg"
+            onChange={(e) => setImage(e.target.value)}
             className="border border-gray-300 p-2 mt-2 rounded-md"
             required
           />

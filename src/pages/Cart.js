@@ -42,7 +42,7 @@ export const Cart = () => {
                 </div>
                 <div>
                   <div class="text-base mb-2 mt-4">{item.title}</div>
-                  <div>Rs. {numeral(item.price * 120).format("0,0")}</div>
+                  <div>Rs. {numeral(item.price).format("0,0")}</div>
                   <span>Quantity: {item.quantity}</span>
                 </div>
               </div>
@@ -57,7 +57,7 @@ export const Cart = () => {
                 {numeral(
                   final_cart
                     .map((item) => item.price * item.quantity)
-                    .reduce((a, b) => a + b, 0) * 120
+                    .reduce((a, b) => a + b, 0)
                 ).format("0,0")}
               </span>
             </div>
